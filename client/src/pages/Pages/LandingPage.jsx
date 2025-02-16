@@ -29,7 +29,7 @@ const LandingPage = () => {
           )}
           <img
             className={`vert-move ${isLoading ? "hidden" : ""}`}
-            src="https://raw.githubusercontent.com/AnuragRoshan/images/553c833e30f5c0a7b803ff548835b9e935cefc79/undraw_reading_time_re_phf7.svg"
+            src=""
             alt="reading-girl"
             srcSet=""
             onLoad={handleImageLoad}

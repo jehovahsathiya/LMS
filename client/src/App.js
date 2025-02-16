@@ -10,6 +10,9 @@ import LandingPage from "./pages/Pages/LandingPage";
 import Cart from "./pages/Pages/Cart/Cart";
 import EditProfile from "./pages/Pages/Profile/EditProfile"
 import Borrower from "./pages/Pages/Cart/Borrower";
+import BookManagement from "./pages/Pages/bookmanagement/bookmanagement.jsx";
+import Dashboard from "./pages/Pages/Cart/Dashboard/dashboard.jsx";
+import UserManagement from "./pages/Pages/userManagement/usermanagement.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -76,8 +79,28 @@ function App() {
               path="/borrower"
               element={user ? <Borrower user={user} /> : <Navigate to="/home" />}
             />
+
+            <Route
+              exact
+              path="/bookManagement"
+              element={user ? <BookManagement /> : <Navigate to="/home" />}
+            />
+
+            <Route
+              exact
+              path="/dashboard"
+              element={user ? <Dashboard /> : <Navigate to="/home" />}
+            />
+
+            <Route
+              exact
+              path="/usermanagement"
+              element={user ? <UserManagement /> : <Navigate to="/home" />}
+            />
+
+           
           </Routes>
-        )}
+        )}  
       </Router>
     </>
   );

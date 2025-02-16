@@ -1,39 +1,34 @@
-const bookSchema = require("../models/books");
+const bookSchema = require("../models/book");
 const userSchema = require("../models/user");
+
+
 
 exports.addBook = async (req, res) => {
     try {
-        const BibNum = req.body.BibNum;
-        const Title = req.body.Title;
-        const ItemCount = req.body.ItemCount;
-        // const password = req.body.password
-        const Author = req.body.Author;
-        const ISBN = req.body.ISBN;
-        const Publisher = req.body.Publisher;
-        const Genre = req.body.Genre;
+        const { title, isbn, pageCount, publishedDate, longDescription, shortDescription, status, authors, ItemCount } = req.body;
+        const image = req.file ? req.file.path : null; // Store image path
 
-        let doc = await bookSchema.findOne({ ISBN: ISBN })
-        if (!doc) {
-            const book = new bookSchema({
-                BibNum: BibNum,
-                Title: Title,
-                ItemCount: ItemCount,
-                Author: Author,
-                ISBN: ISBN,
-                Publisher: Publisher,
-                Genre: Genre
-            });
-            await book.save();
-            return res.status(200).json({ msg: "Book Added SuccessFully" });
-
-        } else if (doc) {
-            return res.status(400).json({ msg: " Book Already Exist" });
-        }
+        const newBook = new bookSchema({
+            title,
+            isbn,
+            pageCount,
+            publishedDate,
+            longDescription,
+            shortDescription,
+            status,
+            authors,
+            ItemCount,
+            image: image,
+        });
+        await newBook.save();
+        res.status(201).json({ message: "Book created successfully", newBook });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-    catch (error) {
-        throw error;
-    }
+   
 };
+
+
 
 exports.getAllBooks = async (req, res) => {
     try {
@@ -64,6 +59,8 @@ exports.addToCart = async (req, res) => {
     try {
         const { username } = req.body;
         const books = req.body.books;
+        console.log(books);
+        
         if (!books || !Array.isArray(books) || books.length === 0) {
             return res.status(400).json({ msg: "Invalid books array" });
         }

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const bookSchema = mongoose.Schema(
     {
+       
         title: { type: String, required: true },
         isbn: { type: String, required: true },
         pageCount: { type: String, required: true },
@@ -9,9 +10,11 @@ const bookSchema = mongoose.Schema(
         longDescription: { type: String, required: true },
         shortDescription: { type: String, required: true },
         status: { type: String, required: true },
-        authors: [],
+        authors: {type:String,required:true},
         genre: [],
         ItemCount: { type: String, required: true },
+        image:{type:String, required: true}
+
     },
     { timestamps: true }
 );

@@ -25,6 +25,15 @@ const Navbar = ({ user }) => {
     }
   };
 
+  
+  const handelboomanagement = () => {
+    if (user.userType === "user") {
+      navigate("/cart");
+    } else {
+      navigate("/bookManagement");
+    }
+  };
+
   const handleLogout = async () => {
     await axios
       .post(`http://localhost:5000/logout`, null, {
@@ -102,6 +111,20 @@ const Navbar = ({ user }) => {
               {user.userType === "user" ? "Cart" : "Borrower"}
             </div>
           </div>
+
+          <div className="nav-inner-element">
+            <div
+              className={`linked ${
+                isLinkActive("/borrower") || isLinkActive("/cart")
+                  ? "underline-link"
+                  : ""
+              }`}
+              onClick={handelboomanagement}
+            >
+              {user.userType === "user" ? null : "BookManagement"}
+            </div>
+          </div>
+
           <div className="nav-inner-element">
             <div
               className={`linked ${
@@ -123,6 +146,9 @@ const Navbar = ({ user }) => {
         </div>
       </div>
       <ToastContainer />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

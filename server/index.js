@@ -42,6 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportConfig")(passport);
 
+app.use("/uploads", express.static("uploads"));
 
 //Middleware End
 

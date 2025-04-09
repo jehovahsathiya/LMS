@@ -1,122 +1,31 @@
-import { Button } from "bootstrap";
-import "../Assets/css/login.css";
-// import { FaLock, FaLockOpen, FaUser, FaAngleLeft } from "react-icons/fa";
-// import { CSSTransition } from "react-transition-group";
 import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Grid,
+  Container,
+  Paper,
+} from "@mui/material";
+import { motion } from "framer-motion";
 import "react-toastify/dist/ReactToastify.css";
 
-// const First = () => {
-//   const [user, setUser] = useState({});
-
-//   const handleInputs = (e) => {
-//     setUser({ ...user, [e.target.name]: e.target.value });
-//     console.log(user);
-//   };
-//   const submitForm = async () => {
-//     // alert("Submitted")
-//     await axios
-//       .post(`http://localhost:5000/register`, user)
-//       .then((response) => {
-//         var message = response.data.msg;
-//         var status = response.status;
-//         console.log(message);
-
-//         if (status === 200) {
-//           toast.success(`${message}`, {
-//             position: "top-center",
-//             autoClose: 2000,
-//             pauseOnHover: false,
-//             pauseOnFocusLoss: false,
-//             draggable: true,
-//             textAlign: "center",
-//           });
-
-//           // window.location.reload();
-//         } else if (status === 202) {
-//           toast.warn(`${message}`, {
-//             position: "top-center",
-//             autoClose: 2000,
-//             pauseOnHover: false,
-//             pauseOnFocusLoss: false,
-//             draggable: true,
-//             textAlign: "center",
-//           });
-//         }
-//       });
-//   };
-
-//   return (
-//     <div className="login-form">
-//       <div class="login-field">
-//         <i class="login-icon fas fa-user"> </i>
-//         <input
-//           type="text"
-//           class="login-input"
-//           name="companyName"
-//           placeholder="Company Name"
-//           onChange={(e) => handleInputs(e)}
-//         />
-//       </div>
-//       <div class="login-field">
-//         <i class="login-icon fas fa-user"> </i>
-//         <input
-//           name="username"
-//           type="text"
-//           class="login-input"
-//           placeholder="Email"
-//           onChange={(e) => handleInputs(e)}
-//         />
-//       </div>
-//       <div class="login-field ">
-//         <input
-//           type="password"
-//           class="login-input"
-//           placeholder="Password"
-//           name="password"
-//           onChange={(e) => handleInputs(e)}
-//         />
-//       </div>
-//       <div class="login-field">
-//         <i class="login-icon fas fa-user"> </i>
-//         <input
-//           type="text"
-//           class="login-input"
-//           name="userType"
-//           placeholder="User Type (manufacturer/airlines/recycling)"
-//           onChange={(e) => handleInputs(e)}
-//         />
-//       </div>
-//       <a href="/signup">
-//         <button
-//           onClick={() => submitForm()}
-//           style={{ padding: "1rem", width: "9rem", borderRadius: "2rem" }}
-//         >
-//           Sign Up
-//         </button>
-//       </a>
-//       <ToastContainer />
-//     </div>
-//   );
-// };
 const SignUp = () => {
-  const [showComponent1, setShowComponent1] = useState(true);
-
   const [user, setUser] = useState({});
 
   const handleInputs = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
   };
+
   const submitForm = async () => {
-    // alert("Submitted")
     await axios
       .post(`http://localhost:5000/register`, user)
       .then((response) => {
-        var message = response.data.msg;
-        var status = response.status;
-        console.log(message);
+        const message = response.data.msg;
+        const status = response.status;
 
         if (status === 200) {
           toast.success(`${message}`, {
@@ -125,12 +34,10 @@ const SignUp = () => {
             pauseOnHover: false,
             pauseOnFocusLoss: false,
             draggable: true,
-            textAlign: "center",
           });
           setTimeout(() => {
             window.location.href = "/signin";
           }, 1500);
-          // window.location.reload();
         } else if (status === 202) {
           toast.warn(`${message}`, {
             position: "top-center",
@@ -138,88 +45,95 @@ const SignUp = () => {
             pauseOnHover: false,
             pauseOnFocusLoss: false,
             draggable: true,
-            textAlign: "center",
           });
         }
       });
   };
 
-  const img1 =
-    "https://github.com/AnuragRoshan/images/blob/main/23.jpg?raw=truecd c ";
   return (
-    <div className="login-top">
-      <div
-        className="login-inner-top-left"
-        style={{ padding: "3rem 3rem 3rem 3rem" }}
-      >
-        <div className="login-title">bookWise</div>
-        <div className="login-title-below">Register Your Account</div>
-        <div className="login-signup-call">
-          Already Have Account ? <a href="/signin">SignIn</a>
-        </div>
-        <div className="login-form">
-          <div class="login-field">
-            <i class="login-icon fas fa-user"> </i>
-            <input
-              type="text"
-              class="login-input"
-              name="name"
-              placeholder="Your Name"
-              onChange={(e) => handleInputs(e)}
-            />
-          </div>
-          <div class="login-field">
-            <i class="login-icon fas fa-user"> </i>
-            <input
-              name="username"
-              type="text"
-              class="login-input"
-              placeholder="Email"
-              onChange={(e) => handleInputs(e)}
-            />
-          </div>
-          <div class="login-field">
-            <i class="login-icon fas fa-user"> </i>
-            <input
-              type="text"
-              class="login-input"
-              name="phone"
-              placeholder="Your Phone Number"
-              onChange={(e) => handleInputs(e)}
-            />
-          </div>
-          <div class="login-field ">
-            <input
-              type="password"
-              class="login-input"
-              placeholder="Password"
-              name="password"
-              onChange={(e) => handleInputs(e)}
-            />
-          </div>
-          <div className="land-button">
-            <div
-              className="landing-button-hover"
-              style={{ marginBlockStart: "0rem", cursor: "pointer" }}
-              onClick={() => submitForm()}
+    <Container maxWidth="md" sx={{ mt: 5 }}>
+      <Paper elevation={6} sx={{ p: 4, borderRadius: 4 }}>
+        <Grid container spacing={4} alignItems="center">
+          <Grid item xs={12} md={6}>
+            <motion.div
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
             >
-              <span>SignUp</span>
-            </div>
-          </div>
-          <ToastContainer />
-        </div>
-      </div>
-      <div className="login-inner-top-right">
-        <div>
-          <img
-            className="login-img"
-            src="https://raw.githubusercontent.com/AnuragRoshan/images/a74c41aa0efd44c9239abed96d88a5ffd11ffe7f/undraw_friendship_mni7.svg"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </div>
-    </div>
+              <Typography variant="h4" fontWeight={700} gutterBottom>
+                bookWise
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary" mb={2}>
+                Register Your Account
+              </Typography>
+
+              <Box component="form" noValidate autoComplete="off">
+                <TextField
+                  fullWidth
+                  label="Your Name"
+                  name="name"
+                  margin="normal"
+                  onChange={handleInputs}
+                />
+                <TextField
+                  fullWidth
+                  label="Email"
+                  name="username"
+                  margin="normal"
+                  onChange={handleInputs}
+                />
+                <TextField
+                  fullWidth
+                  label="Phone Number"
+                  name="phone"
+                  margin="normal"
+                  onChange={handleInputs}
+                />
+                <TextField
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  name="password"
+                  margin="normal"
+                  onChange={handleInputs}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  sx={{ mt: 2, py: 1.5 }}
+                  onClick={submitForm}
+                >
+                  Sign Up
+                </Button>
+              </Box>
+
+              <Typography variant="body2" mt={2}>
+                Already have an account?{" "}
+                <a href="/signin" style={{ color: "#1976d2" }}>
+                  Sign In
+                </a>
+              </Typography>
+            </motion.div>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <motion.div
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <img
+                src="https://raw.githubusercontent.com/AnuragRoshan/images/a74c41aa0efd44c9239abed96d88a5ffd11ffe7f/undraw_friendship_mni7.svg"
+                alt="signup"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </motion.div>
+          </Grid>
+        </Grid>
+        <ToastContainer />
+      </Paper>
+    </Container>
   );
 };
 

@@ -21,6 +21,9 @@ function App() {
   const fetchData = async () => {
     try {
       const { data } = await axios.get(`http://localhost:5000/logedinuser/`, { withCredentials: true });
+      console.log(data.user);
+      localStorage.setItem("user",JSON.stringify(data.user))
+      
       setUser(data.user);
     } catch (error) {
       // Handle error

@@ -94,7 +94,7 @@ exports.loginUser = (req, res, next) => {
         else {
             req.logIn(user, (err) => {
                 if (err) throw err;
-                res.send({ status: "200", message: "Autheticated " });
+                res.send({ status: "200", message: "Autheticated ",user:user });
                 // console.log(req.user.fullName);
             });
         }

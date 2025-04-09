@@ -16,6 +16,8 @@ const UserDashboard = () => {
   const user= JSON.parse(localStorage.getItem("user"))
 
   
+
+  
   const [cart, setCart] = useState([]);
 
   const addToCart =  async (book) => {
@@ -23,9 +25,11 @@ const UserDashboard = () => {
 
       
       const username = user.username;
+      console.log(username);
+      
   
       
-      const send = { books: book, username: username };
+      const send = { books: [book], username: username };
       console.log(send);
       await axios
         .post(`http://localhost:5000/addToCart`, send, {})
@@ -72,7 +76,7 @@ const UserDashboard = () => {
         {books.map((book) => (
           <Col key={book._id} md={3} className="mb-4">
             <Card className="shadow-lg">
-              <CardMedia component="img" height="200" image={book.image} alt={book.title} />
+              <CardMedia component="img" height="200" image={`http://localhost:5000/${book.image}`} alt={book.title} />
               <CardContent>
                 <Typography variant="h6" gutterBottom>{book.title}</Typography>
                 <Typography variant="body2" color="textSecondary">Status: <strong>{book.status}</strong></Typography>
@@ -81,7 +85,7 @@ const UserDashboard = () => {
                 variant="contained"
                 color="primary"
                 fullWidth
-                onClick={() => addToCart(book)}
+                onClick={() => addToCart(book)}  
                 disabled={book.status !== "Available"}
               >
                 Add to Cart

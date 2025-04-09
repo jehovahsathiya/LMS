@@ -181,7 +181,7 @@ const BookManagement = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Author</Form.Label>
-              <Form.Control type="text" placeholder="Enter author" value={newBook.authors} onChange={(e) => setNewBook({ ...newBook, author: e.target.value })} />
+              <Form.Control type="text" placeholder="Enter author" value={newBook.authors} onChange={(e) => setNewBook({ ...newBook, authors: e.target.value })} />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>ISBN</Form.Label>

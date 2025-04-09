@@ -11,6 +11,8 @@ const Cart = ({ user }) => {
       const response = await axios.get(
         `http://localhost:5000/booksInCart/${user.username}`
       );
+      console.log(response);
+      
       setData(response.data.books);
       console.log(data);
       setIsLoading(false); // Set isLoading to false when data is fetched
@@ -34,11 +36,11 @@ const Cart = ({ user }) => {
 
   useEffect(() => {
     fetchData();
-  }, [proceedCheckout]);
+  }, []);
 
   useEffect(() => {
     fetchData();
-  }, [proceedCheckout]);
+  }, []);
 
   if (data == null) {
     return <>NULL H RE BABA</>;
@@ -96,7 +98,7 @@ const Cart = ({ user }) => {
                       >
                         <div>
                           <img
-                            src="https://covers.openlibrary.org/b/isbn/1933988746-L.jpg"
+                            src={`http://localhost:5000/${d.image}`}
                             alt=""
                             srcset=""
                             style={{
@@ -114,9 +116,9 @@ const Cart = ({ user }) => {
                             fontSize: "0.9rem",
                           }}
                         >
-                          <div>Title : {d.Title}</div>
-                          <div>Author : {d.Author}</div>
-                          <div>Publisher : {d.Publisher}</div>
+                          <div>Title : {d.title}</div>
+                          <div>Author : {d.authors}</div>
+                          <div>Publisher : {d.authors}</div>
                         </div>
                       </div>
                     ))}

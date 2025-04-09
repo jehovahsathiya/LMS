@@ -58,6 +58,8 @@ exports.searchBooks = async (req, res) => {
 exports.addToCart = async (req, res) => {
     try {
         const { username } = req.body;
+        console.log(username);
+        
         const books = req.body.books;
         console.log(books);
         
@@ -72,12 +74,15 @@ exports.addToCart = async (req, res) => {
         }
 
         for (let i = 0; i < books.length; i++) {
-            const ISBN = books[i];
-            const book = await bookSchema.findOne({ ISBN });
+            const ISBN = books[i].isbn;
+            const book = await bookSchema.findOne({ isbn:ISBN });
 
             if (!book) {
                 return res.status(400).json({ msg: `Book with ISBN ${ISBN} not found` });
             }
+
+            console.log(book);
+            
 
             if (book.ItemCount > 0) {
                 // Decrease item count of the book
@@ -87,7 +92,7 @@ exports.addToCart = async (req, res) => {
                 // Add ISBN to user's cart
                 // user.cart.push(ISBN);
                 user.cart.push({
-                    isbn: book.ISBN
+                    isbn: book.isbn
                 });
             } else {
                 return res.status(400).json({ msg: `Book with ISBN ${ISBN} is out of stock` });

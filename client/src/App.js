@@ -13,6 +13,9 @@ import Borrower from "./pages/Pages/Cart/Borrower";
 import BookManagement from "./pages/Pages/bookmanagement/bookmanagement.jsx";
 import Dashboard from "./pages/Pages/Cart/Dashboard/dashboard.jsx";
 import UserManagement from "./pages/Pages/userManagement/usermanagement.jsx";
+import Chatbot from "./pages/chatbot.js/chat.jsx";
+import DigitalLibrary from "./pages/digitallibrary/digitallibrary.jsx";
+import BookPDFSearch from "./pages/digitallibrary/searchookspdf.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -22,8 +25,8 @@ function App() {
     try {
       const { data } = await axios.get(`http://localhost:5000/logedinuser/`, { withCredentials: true });
       console.log(data.user);
-      localStorage.setItem("user",JSON.stringify(data.user))
-      
+      localStorage.setItem("user", JSON.stringify(data.user))
+
       setUser(data.user);
     } catch (error) {
       // Handle error
@@ -100,11 +103,24 @@ function App() {
               path="/usermanagement"
               element={user ? <UserManagement /> : <Navigate to="/home" />}
             />
+            <Route
+              exact
+              path="/digital-library"
+              element={<DigitalLibrary />}
+            />
 
-           
+            <Route
+              exact
+              path="/BookPDFSearch"
+              element={<BookPDFSearch />}
+            />
+            
+
+
           </Routes>
-        )}  
+        )}
       </Router>
+      <Chatbot />
     </>
   );
 }

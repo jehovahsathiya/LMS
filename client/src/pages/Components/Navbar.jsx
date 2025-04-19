@@ -77,6 +77,29 @@ const Navbar = ({ user }) => {
                   }
                 },
               },
+
+              {
+                label: user.userType === "user" ? null : "dashboard",
+                path: "/dashboard",
+                onClick: () => {
+                  if (user.userType !== "user") {
+                    navigate("/dashboard");
+                  }
+                },
+              
+              },
+
+              {
+                label: "digital-library",
+                path: "/digital-library",
+                onClick: () => navigate("/digital-library"),
+              },
+              {
+                label: "Book PDF Search",
+                path: "/BookPDFSearch",
+                onClick: () => navigate("/BookPDFSearch"),
+              }
+              ,
               {
                 label: "Profile",
                 path: "/profile",

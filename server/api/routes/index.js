@@ -17,6 +17,7 @@ const upload = require("../../midlware/multer");
 // user api
 router.get("/allUser", userController.allUser);
 router.post("/register", userController.registerUser);
+router.delete("/user/:uniqueId", userController.deleteUser);
 router.post("/updateUser", userController.updateUser);
 router.post("/login", userController.loginUser);
 router.post("/logout", userController.logout);

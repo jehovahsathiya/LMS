@@ -3,6 +3,7 @@ import { Container, Table, Button, Modal, Form } from "react-bootstrap";
 import { TextField } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import Sidebar from "../Cart/Dashboard/sidebar";
 
 const BookManagement = () => {
   const [books, setBooks] = useState([
@@ -117,6 +118,8 @@ const BookManagement = () => {
 
 
   return (
+    <>
+    <Sidebar/>
     <Container className="mt-4">
       <h2 className="text-center mb-4" style={{ color: "#4a90e2" }}>📚 Book Management System</h2>
       
@@ -232,6 +235,7 @@ const BookManagement = () => {
         </Modal.Footer>
       </Modal>
     </Container>
+    </>
   );
 };
 

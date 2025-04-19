@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Link } from "react-router-dom";
+import Sidebar from "./sidebar";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -36,6 +37,8 @@ const Dashboard = () => {
     };
 
     return (
+        <>
+        <Sidebar/>
         <Container className="mt-4">
             <motion.h2 className="text-center mb-4" style={{ color: "#673ab7" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>📊 Library Dashboard</motion.h2>
 
@@ -104,6 +107,8 @@ const Dashboard = () => {
                 </tbody>
             </Table>
         </Container>
+        </>
+        
     );
 };
 

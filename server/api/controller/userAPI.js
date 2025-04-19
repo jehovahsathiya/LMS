@@ -24,7 +24,7 @@ exports.registerUser = async (req, res) => {
         const password = await bcrypt.hash(req.body.password, 10);
         const userType = "user";
         const phone = req.body.phone;
-        const uniqueId = genUID();;
+        const uniqueId = genUID();
         const check = checkvalidation(req.body);
         if (check.status == 400) {
             return res.status(202).json({ msg: check.message });
@@ -53,6 +53,25 @@ exports.registerUser = async (req, res) => {
         throw error;
     }
 };
+
+
+exports.deleteUser = async (req, res) => {
+    try {
+      const { uniqueId } = req.params;
+  
+      // Find and delete the user
+      const user = await userSchema.findOneAndDelete({ _id:uniqueId });
+  
+      if (!user) {
+        return res.status(404).json({ msg: "User not found" });
+      }
+  
+      return res.status(200).json({ msg: "User deleted successfully" });
+    } catch (error) {
+      return res.status(500).json({ msg: "Internal server error" });
+    }
+  };
+  
 
 exports.updateUser = async (req, res) => {
     try {

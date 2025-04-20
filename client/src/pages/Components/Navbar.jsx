@@ -87,6 +87,17 @@ const Navbar = ({ user }) => {
                   }
                 },
               
+              },//
+
+              {
+                label: "MyBorrowedBooks",
+                path: "/MyBorrowedBooks",
+                onClick: () => {
+                  if (user.userType == "user") {
+                    navigate("/MyBorrowedBooks");
+                  }
+                },
+              
               },
 
               {

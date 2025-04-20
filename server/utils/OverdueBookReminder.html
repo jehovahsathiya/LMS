@@ -1,0 +1,68 @@
+<!-- Template: OverdueBookReminder.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+      color: #333;
+    }
+    .email-container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      background-color: #e53935;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px 8px 0 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .content {
+      padding: 20px;
+    }
+    .book-info {
+      background-color: #fce4ec;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">📚 Book Return Reminder</div>
+    <div class="content">
+      <p>Hi <strong>{{borrowerName}}</strong>,</p>
+      <p>This is a friendly reminder that you have an overdue book that needs to be returned. Please return it at the earliest to avoid any penalties.</p>
+      <div class="book-info">
+        <strong>Book Details:</strong><br />
+        <strong>ISBN:</strong> {{isbn}}<br />
+        <strong>UID:</strong> {{uid}}<br />
+        <strong>Taken On:</strong> {{takenDate}}<br />
+        <strong>Days Overdue:</strong> {{daysOverdue}} days
+      </div>
+      <p>We appreciate your prompt action.</p>
+    </div>
+    <div class="footer">
+      📖 Library System | TCF Technologies<br />
+      Need help? Contact us at support@tcftechnologys.com
+    </div>
+  </div>
+</body>
+</html>

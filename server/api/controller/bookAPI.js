@@ -1,3 +1,4 @@
+const { sendNewBookEmail, sendReturnBookEmailToAdmin, sendReturnBookEmail } = require("../../utils/email");
 const bookSchema = require("../models/book");
 const userSchema = require("../models/user");
 
@@ -21,6 +22,15 @@ exports.addBook = async (req, res) => {
             image: image,
         });
         await newBook.save();
+
+        // sendNewBookEmail(userEmail, newBook); // Send email to user
+
+        const users = await userSchema.find({ userType: "user" });
+        users.forEach(async (user) => {
+           await sendNewBookEmail(user.username, newBook);
+        });
+        console.log(users);
+
         res.status(201).json({ message: "Book created successfully", newBook });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -125,7 +135,7 @@ exports.checkout = async (req, res) => {
 
         for (let i = 0; i < booksInCart.length; i++) {
             const isbn = booksInCart[i].isbn;
-            const book = await bookSchema.findOne({ ISBN: isbn });
+            const book = await bookSchema.findOne({ isbn: isbn });
 
             if (!book) {
                 return res.status(400).json({ msg: `Book with ISBN ${isbn} not found` });
@@ -138,7 +148,7 @@ exports.checkout = async (req, res) => {
 
                 // Add book to borrowed array
                 borrowedBooks.push({
-                    isbn: book.ISBN,
+                    isbn: book.isbn,
                     takenDate: new Date(),// Set the due date as per your requirements
 
                 });
@@ -171,7 +181,7 @@ exports.returnBooks = async (req, res) => {
         }
 
         // Find the books with the provided ISBNs
-        const books = await bookSchema.find({ ISBN: { $in: isbn } });
+        const books = await bookSchema.find({ isbn: { $in: isbn } });
 
         if (books.length === 0) {
             return res.status(404).json({ msg: 'No books found with the provided ISBN' });
@@ -188,6 +198,18 @@ exports.returnBooks = async (req, res) => {
 
         // Save the updated user
         await user.save();
+
+     const   users = await userSchema.find({ userType: "admin" });
+        users.forEach(async (user) => {
+            await sendReturnBookEmailToAdmin(user.username,user ,books[0]);
+        }
+        );
+
+        sendReturnBookEmail(user.username, books[0]); // Send email to user
+
+
+
+        
 
         return res.status(200).json({ msg: 'Books returned successfully' });
     } catch (error) {
@@ -269,7 +291,7 @@ exports.booksInCart = async (req, res) => {
         const isbnList = user.cart.map(book => book.isbn);
 
         // Find the books based on the extracted ISBNs
-        const books = await bookSchema.find({ ISBN: { $in: isbnList } });
+        const books = await bookSchema.find({ isbn: { $in: isbnList } });
 
         if (books.length === 0) {
             return res.status(404).json({ msg: 'No books found' });
@@ -303,7 +325,7 @@ exports.borrowedBooks = async (req, res) => {
                     takenDate: book.takenDate,
                 };
 
-                const bookDetails = await bookSchema.findOne({ ISBN: book.isbn });
+                const bookDetails = await bookSchema.findOne({ isbn: book.isbn });
                 console.log(bookDetails);
                 if (bookDetails) {
                     borrowedBook.title = bookDetails.Title;

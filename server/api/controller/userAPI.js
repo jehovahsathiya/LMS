@@ -3,6 +3,7 @@ const userSchema = require("../models/user");
 const bcrypt = require("bcryptjs");
 const genUID = require("./generateUID")
 const { checkvalidation } = require("./checkValid");
+const { sendOverdueEmail } = require("../../utils/email");
 exports.allUser = async (req, res) => {
     try {
         // Retrieve the list of users from the database
@@ -151,6 +152,26 @@ exports.userDetail = async (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+
+
+exports.sendOverEmail = async (req, res) => {
+
+    const  uniqueId  = req.body; // Get the uniqueId from the request body
+  
+    try {
+     
+      await sendOverdueEmail(uniqueId); // 👉 call the reusable email sender function
+  
+      return res.status(200).json({ message: 'Overdue email sent successfully' });
+    } catch (error) {
+      console.error('Controller Error:', error.message);
+      return res.status(500).json({ message: 'Failed to send overdue email' });
+    }
+  }
+
+
+
 
 
 

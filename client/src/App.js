@@ -16,6 +16,8 @@ import UserManagement from "./pages/Pages/userManagement/usermanagement.jsx";
 import Chatbot from "./pages/chatbot.js/chat.jsx";
 import DigitalLibrary from "./pages/digitallibrary/digitallibrary.jsx";
 import BookPDFSearch from "./pages/digitallibrary/searchookspdf.jsx";
+import MyBorrowedBooks from "./pages/Pages/myBorrowed/myborrowedlist.jsx";
+import OverduePage from "./pages/Pages/overdueBooks/overDueBooks.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -85,12 +87,26 @@ function App() {
               path="/borrower"
               element={user ? <Borrower user={user} /> : <Navigate to="/home" />}
             />
+             <Route
+              exact
+              path="/MyBorrowedBooks"
+              element={user ? <MyBorrowedBooks /> : <Navigate to="/home" />}
+            />
 
             <Route
               exact
               path="/bookManagement"
               element={user ? <BookManagement /> : <Navigate to="/home" />}
             />
+
+<Route
+              exact
+              path="/overdueBooks"
+              element={user ? <OverduePage user={user} /> : <Navigate to="/home" />}
+            />
+
+
+
 
             <Route
               exact

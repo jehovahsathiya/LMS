@@ -9,22 +9,20 @@ const OverduePage = ({user}) => {
   const [snackMsg, setSnackMsg] = useState("");
 
   useEffect(() => {
-    const fetchOverdue = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/borrowedBooks");
-        const now = new Date();
-        const overdue = res.data.filter((borrow) => {
-          const takenDate = new Date(borrow.takenDate);
-          const diffInDays = Math.floor(
-            (now - takenDate) / (1000 * 60 * 60 * 24)
-          );
-          return diffInDays > 7;
-        });
-        setOverdueBooks(overdue);
-      } catch (err) {
-        console.error("Error fetching overdue books:", err);
-      }
-    };
+   const fetchOverdue = async () => {
+  try {
+    const res = await axios.get("http://localhost:5000/borrowedBooks");
+    const now = new Date();
+    const overdue = res.data.filter((borrow) => {
+      const dueDate = new Date(borrow.dueDate);
+      return now > dueDate; // Book is overdue if today is after the due date
+    });
+    setOverdueBooks(overdue);
+  } catch (err) {
+    console.error("Error fetching overdue books:", err);
+  }
+};
+
 
     fetchOverdue();
   }, []);

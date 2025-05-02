@@ -72,6 +72,9 @@ const MyBorrowedBooks = () => {
                   <Typography variant="body2">
                     Taken On: {new Date(book.takenDate).toLocaleDateString()}
                   </Typography>
+                  <Typography variant="body2">
+                    Due On: {new Date(book.dueDate).toLocaleDateString()}
+                  </Typography>
                   <Button
                     variant="contained"
                     color="secondary"

@@ -7,13 +7,6 @@ const bookController = require("../controller/bookAPI");
 const multer = require("multer");
 const upload = require("../../midlware/multer");
 
-
-
-
-
-
-
-
 // user api
 router.get("/allUser", userController.allUser);
 router.post("/register", userController.registerUser);

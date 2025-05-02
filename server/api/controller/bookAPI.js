@@ -69,13 +69,14 @@ exports.addToCart = async (req, res) => {
     try {
         const { username } = req.body;
         console.log(username);
+        console.log(username);
         
         const books = req.body.books;
         console.log(books);
         
         if (!books || !Array.isArray(books) || books.length === 0) {
             return res.status(400).json({ msg: "Invalid books array" });
-        }
+        }   
 
         const user = await userSchema.findOne({ username });
 
@@ -149,9 +150,10 @@ exports.checkout = async (req, res) => {
                 // Add book to borrowed array
                 borrowedBooks.push({
                     isbn: book.isbn,
-                    takenDate: new Date(),// Set the due date as per your requirements
-
+                    takenDate: new Date(),
+                    dueDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000) // Adds 15 days
                 });
+                
             } else {
                 return res.status(400).json({ msg: `Book with ISBN ${isbn} is out of stock` });
             }
@@ -201,15 +203,12 @@ exports.returnBooks = async (req, res) => {
 
      const   users = await userSchema.find({ userType: "admin" });
         users.forEach(async (user) => {
-            await sendReturnBookEmailToAdmin(user.username,user ,books[0]);
+            await sendReturnBookEmailToAdmin(user.username,user,books[0]);
         }
         );
 
+
         sendReturnBookEmail(user.username, books[0]); // Send email to user
-
-
-
-        
 
         return res.status(200).json({ msg: 'Books returned successfully' });
     } catch (error) {
@@ -323,6 +322,7 @@ exports.borrowedBooks = async (req, res) => {
                     uid: user.uniqueId,
                     borrower: user.name,
                     takenDate: book.takenDate,
+                    dueDate:book.dueDate
                 };
 
                 const bookDetails = await bookSchema.findOne({ isbn: book.isbn });
